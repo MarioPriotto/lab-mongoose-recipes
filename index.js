@@ -14,16 +14,12 @@ const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
 const conectarLimpar = async () => {
   await mongoose.connect(MONGODB_URI)
   .then( x => {
-    //console.log(`Ponto de Conexão: "${x.connection.name}"`)
     conexao = x.connection
-    //console.log(`Ponto de Conexão: "${conexao}"`)
     console.log(`Ponto de Conexão: "${conexao.name}"`)
     return Recipe.deleteMany()
   })
   .then( x => {
     console.log(`Ponto de Saída: "${conexao.name}"`)
-    //console.log(`Ponto de Saída: "${conexao}"`)
-    //return conexao
   });
 }
 
@@ -67,8 +63,9 @@ const gravarDadosMatriz = async () => {
 
 //alterarDadosDeUmRegistro
 const alterarRegistro = async () => {
-  const query = { title: 'Rigatoni alla Genovese' };
-  const afetado = await Recipe.findOneAndUpdate(query, { duration: 100 }, { new: true, runValidators: true} )
+  const query  = { title: 'Rigatoni alla Genovese' };
+  const aplica = { duration: 100 };
+  const afetado = await Recipe.findOneAndUpdate(query, aplica, { new: true, runValidators: true} )
   if ( afetado ) {
     console.log("03-Registro alterado com sucesso...")
     return afetado
